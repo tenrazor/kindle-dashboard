@@ -1,94 +1,103 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kindle Dashboard</title>
+    <style>
+        body {
+            background: #ffffff;
+            color: #000000;
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            overflow: hidden; /* Evita barras de rolagem */
+        }
 
-<title>Kindle Dashboard</title>
+        .wrapper {
+            width: 100%;
+            margin-top: 80px; /* Ajustado para compensar a barra do navegador */
+        }
 
-<style>
-body{
-    background:#ffffff;
-    color:#000000;
-    margin:0;
-    padding:0;
-    font-family:Georgia, serif;
-    text-align:center;
-}
+        .day {
+            font-size: 140px;
+            font-weight: bold;
+            line-height: 1;
+        }
 
-.wrapper{
-    width:100%;
-    margin-top:60px;
-}
+        .month {
+            font-size: 32px;
+            letter-spacing: 10px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
 
-.day{
-    font-size:110px;
-    font-weight:bold;
-    line-height:1;
-}
+        .weather {
+            font-size: 28px;
+            line-height: 1.6;
+        }
 
-.month{
-    font-size:28px;
-    letter-spacing:5px;
-    margin-bottom:40px;
-}
+        .line {
+            width: 60%;
+            margin: 40px auto;
+            border-top: 2px solid #000;
+        }
 
-.weather{
-    font-size:26px;
-    line-height:1.6;
-}
+        .quote {
+            width: 85%;
+            margin: auto;
+            font-size: 26px;
+            line-height: 1.6;
+            font-style: italic;
+        }
 
-.line{
-    width:70%;
-    margin:40px auto;
-    border-top:1px solid #000;
-}
-
-.quote{
-    width:80%;
-    margin:auto;
-    font-size:24px;
-    line-height:1.6;
-}
-
-.time{
-    font-size:30px;
-}
-</style>
-
+        .time {
+            font-size: 36px;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="wrapper">
+    <div class="wrapper">
+        <div class="day">14</div>
+        <div class="month">JUNE</div>
+        
+        <div class="weather">
+            ☁ Nublado<br>
+            18°C
+        </div>
 
-<div class="day">
-15
-</div>
+        <div class="line"></div>
 
-<div class="month">
-JUNE
-</div>
+        <div class="quote">
+            "Você não precisa estar motivado.<br>
+            Você precisa aparecer."
+        </div>
 
-<div class="weather">
-☁ Nublado<br>
-18°C
-</div>
+        <div class="line"></div>
 
-<div class="line"></div>
+        <div class="time" id="clock">--:--</div>
+    </div>
 
-<div class="quote">
-Você não precisa estar motivado.<br><br>
-Você precisa aparecer.
-</div>
-
-<div class="line"></div>
-
-<div class="time">
-23:00
-</div>
-
-</div>
+    <script>
+        // Atualiza o relógio na tela sem precisar recarregar a página inteira
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + 
+                               now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('clock').innerText = timeString;
+        }
+        
+        updateTime();
+        
+        // Recarrega a página a cada 60 segundos para garantir que a data/clima mudem
+        setTimeout(function(){
+            location.reload();
+        }, 60000);
+    </script>
 
 </body>
 </html>

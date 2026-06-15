@@ -80,11 +80,14 @@
         <div class="line"></div>
 
         <div class="time">
-            <script>
-                var d = new Date();
-                var hours = d.getHours();
-                var minutes = d.getMinutes();
-                document.write((hours < 10 ? '0' : '') + hours + ":" + (minutes < 10 ? '0' : '') + minutes);
+           <script>
+        // Cria uma data com o timezone de Brasília (GMT-3)
+        var d = new Date();
+        var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+        var nd = new Date(utc + (3600000 * -3));
+        var hours = nd.getHours();
+        var minutes = nd.getMinutes();
+        document.write((hours < 10 ? '0' : '') + hours + ":" + (minutes < 10 ? '0' : '') + minutes);
             </script>
         </div>
     </div>

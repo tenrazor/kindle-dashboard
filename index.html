@@ -72,6 +72,7 @@ body{
 }
 
 </style>
+<meta http-equiv="refresh" content="3600">
 
 </head>
 
@@ -79,26 +80,96 @@ body{
 
 <div class="container">
 
-```
 <div class="day">
-    15
+<script>
+var now = new Date();
+var brasil = new Date(now.getTime() - (3 * 60 * 60 * 1000));
+document.write(brasil.getUTCDate());
+</script>
 </div>
 
 <div class="month">
-    JUNE
+<script>
+var meses = [
+"JANUARY","FEBRUARY","MARCH",
+"APRIL","MAY","JUNE",
+"JULY","AUGUST","SEPTEMBER",
+"OCTOBER","NOVEMBER","DECEMBER"
+];
+
+document.write(meses[brasil.getUTCMonth()]); </script>
+
 </div>
 
 <div class="weather">
-    ☁ Nublado<br>
-    18°C
+☁ Nublado<br>
+18°C
 </div>
 
 <div class="separator"></div>
 
 <div class="quote">
-    Você não precisa estar motivado.<br><br>
-    Você precisa aparecer.
+<script>
+
+var h = brasil.getUTCHours();
+
+var frasesManha = [
+"Não espere motivação. Comece.",
+"O dia pertence a quem age primeiro.",
+"Ação gera motivação.",
+"Disciplina é fazer o que precisa ser feito.",
+"O futuro é construído antes que os outros acordem."
+];
+
+var frasesTarde = [
+"Concentre-se na próxima ação.",
+"Continue enquanto os outros desaceleram.",
+"O progresso raramente é dramático.",
+"Persistência vence talento sem disciplina.",
+"A vitória é a soma dos dias comuns."
+];
+
+var frasesNoite = [
+"Você controlou suas ações hoje?",
+"A paz vem de aceitar o que não controla.",
+"A gratidão multiplica o que já existe.",
+"Seja paciente com o processo.",
+"A excelência nasce da repetição."
+];
+
+var lista;
+
+if(h >= 5 && h < 12){
+lista = frasesManha;
+}else if(h >= 12 && h < 18){
+lista = frasesTarde;
+}else{
+lista = frasesNoite;
+}
+
+document.write(lista[h % lista.length]);
+
+</script>
 </div>
+
+<div class="separator"></div>
+
+<div class="time">
+<script>
+
+var m = brasil.getUTCMinutes();
+
+document.write(
+(h < 10 ? "0" : "") + h +
+":" +
+(m < 10 ? "0" : "") + m
+);
+
+</script>
+</div>
+
+</div>
+
 
 <div class="separator"></div>
 

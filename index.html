@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kindle Dashboard</title>
+
+<style>
+body{
+    background:#ffffff;
+    color:#000;
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    font-family:Georgia, serif;
+}
+
+.container{
+    width:85%;
+}
+
+.day{
+    font-size:110px;
+    font-weight:bold;
+    line-height:1;
+}
+
+.month{
+    font-size:34px;
+    letter-spacing:4px;
+    margin-bottom:20px;
+}
+
+.weather{
+    font-size:28px;
+}
+
+.city{
+    font-size:18px;
+    margin-top:5px;
+}
+
+.line{
+    margin:30px auto;
+    width:80%;
+    border-top:1px solid #000;
+}
+
+.quote{
+    font-size:26px;
+    line-height:1.5;
+    min-height:120px;
+}
+
+.clock{
+    font-size:34px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="day" id="day"></div>
+
+<div class="month" id="month"></div>
+
+<div class="weather" id="weather">
+☁ Carregando...
+</div>
+
+<div class="city">
+Cambé, PR
+</div>
+
+<div class="line"></div>
+
+<div class="quote" id="quote"></div>
+
+<div class="line"></div>
+
+<div class="clock" id="clock"></div>
+
+</div>
+
+<script>
+
+const localQuotes = [
+
+"Você não precisa estar motivado. Você precisa aparecer.",
+
+"Consistência é uma superpotência.",
+
+"Disciplina é liberdade.",
+
+"Ação gera motivação.",
+
+"Pequenos passos. Todos os dias.",
+
+"O desconforto é o preço do progresso.",
+
+"Continue mesmo sem vontade.",
+
+"O futuro recompensa a constância.",
+
+"Faça primeiro. Sinta depois.",
+
+"Ninguém corre seus quilômetros por você."
+
+];
+
+function getCategoryQuotes() {
+
+const hour = new Date().getHours();
+
+if(hour >= 5 && hour < 12){
+return [
+"Não espere vontade. Comece.",
+"O dia pertence a quem começa.",
+"Trabalhe enquanto é cedo."
+];
+}
+
+if(hour >= 12 && hour < 18){
+return [
+"Concentre-se na próxima ação.",
+"Continue enquanto os outros param.",
+"O progresso raramente é dramático."
+];
+}
+
+return [
+"A paz vem de aceitar o que não controla.",
+"Você controlou suas ações hoje?",
+"A gratidão multiplica o que já existe."
+];
+}
+
+function updateQuote(){
+
+const quotes = [
+...localQuotes,
+...getCategoryQuotes()
+];
+
+const random =
+quotes[Math.floor(Math.random()*quotes.length)];
+
+document.getElementById("quote").innerText =
+random;
+}
+
+function updateDate(){
+
+const now = new Date();
+
+const months = [
+"JANUARY","FEBRUARY","MARCH",
+"APRIL","MAY","JUNE",
+"JULY","AUGUST","SEPTEMBER",
+"OCTOBER","NOVEMBER","DECEMBER"
+];
+
+document.getElementById("day").innerText =
+now.getDate();
+
+document.getElementById("month").innerText =
+months[now.getMonth()];
+}
+
+function updateClock(){
+
+const now = new Date();
+
+document.getElementById("clock").innerText =
+now.toLocaleTimeString(
+'pt-BR',
+{
+hour:'2-digit',
+minute:'2-digit'
+}
+);
+}
+
+async function updateWeather(){
+
+try{
+
+const response = await fetch(
+"https://api.open-meteo.com/v1/forecast?latitude=-23.2758&longitude=-51.2783&current=temperature_2m"
+);
+
+const data = await response.json();
+
+document.getElementById("weather").innerText =
+"☁ " +
+Math.round(data.current.temperature_2m) +
+"°C";
+
+}catch{
+
+document.getElementById("weather").innerText =
+"☁ --°C";
+
+}
+
+}
+
+updateDate();
+updateClock();
+updateWeather();
+updateQuote();
+
+setInterval(updateClock,60000);
+setInterval(updateWeather,3600000);
+setInterval(updateQuote,3600000);
+
+</script>
+
+</body>
+</html>

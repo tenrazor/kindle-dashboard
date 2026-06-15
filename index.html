@@ -103,10 +103,24 @@ body{
 <div class="separator"></div>
 
 <div class="time">
-  <script>
-var d = new Date();
-document.write(d.getHours() + ":" + d.getMinutes());
-  </script>
+<script>
+
+var now = new Date();
+
+var brasil = new Date(
+    now.getTime() - (3 * 60 * 60 * 1000)
+);
+
+var h = brasil.getUTCHours();
+var m = brasil.getUTCMinutes();
+
+document.write(
+    (h < 10 ? "0" : "") + h +
+    ":" +
+    (m < 10 ? "0" : "") + m
+);
+
+</script>
 </div>
 ```
 
